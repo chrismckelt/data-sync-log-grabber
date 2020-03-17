@@ -17,5 +17,4 @@ To view logs make sure application insights is setup and set an alert for the fo
     }
 
 
-
-![image](https://user-images.githubusercontent.com/662868/76823265-a993e080-684e-11ea-841e-200044745e03.png)
+![image](https://user-images.githubusercontent.com/662868/76823422-2921af80-684f-11ea-93d9-e28051d62c97.png)
