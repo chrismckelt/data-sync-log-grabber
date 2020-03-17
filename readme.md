@@ -15,3 +15,7 @@ To view logs make sure application insights is setup and set an alert for the fo
     "Details": "Sync completed successfully in 83.05 seconds. \r\n\tUpload:   0 changes applied\r\n\tDownload: 0 changes applied",
     "Source": "example.database.windows.net/exampleDB1"
     }
+
+
+
+![image](https://user-images.githubusercontent.com/662868/76823265-a993e080-684e-11ea-841e-200044745e03.png)
