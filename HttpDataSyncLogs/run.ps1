@@ -16,6 +16,10 @@
 #   "Details": "Sync completed successfully in 83.05 seconds. \r\n\tUpload:   0 changes applied\r\n\tDownload: 0 changes applied",
 #   "Source": "example.database.windows.net/exampleDB1"
 # }
+#
+#
+#
+# https://github.com/chrismckelt/data-sync-log-grabber
 # #
 using namespace System.Net
 using namespace Microsoft.Azure.Commands.Sql.DataSync.Model
@@ -25,7 +29,7 @@ using namespace System.Collections.Generic
 param($Request, $TriggerMetadata)
 
 # Write to the Azure Functions log stream.
-Write-Host "HttpDataSyncLogs HTTP trigger started."
+# Write-Host "HttpDataSyncLogs HTTP trigger started."
 
 # variables - fetch from env var / slot setting
 $environment =  [Environment]::GetEnvironmentVariable('environment', "User")
@@ -90,13 +94,23 @@ foreach ($log in $syncLogList)
     # }
 }
 
-# write this out to the console so logs are captured by application insights
-$json = ConvertTo-JSON $syncLogList
-write-host "###############"
-Write-Host $json
-write-host "###############"
 
-# optionally post to log analytics - see code below
+# write to console so logs are captured by application insights
+$json = ConvertTo-JSON $syncLogList
+
+Write-Host $json
+
+# Associate values to output bindings by calling 'Push-OutputBinding'.
+Push-OutputBinding -Name Response -Value ([HttpResponseContext]@{
+        StatusCode = [HttpStatusCode]::OK
+        Body       = $syncLogList
+    })
+
+
+
+# Optionally if you want to post to log analytics - see code below
+
+
 # $result = PostOMSData -customerId $customerId -sharedKey $sharedKey -body ([System.Text.Encoding]::UTF8.GetBytes($json)) -logType $logType
 # if ($result -eq 200) 
 # {
@@ -113,11 +127,6 @@ write-host "###############"
 # }
     
 
-# Associate values to output bindings by calling 'Push-OutputBinding'.
-Push-OutputBinding -Name Response -Value ([HttpResponseContext]@{
-        StatusCode = [HttpStatusCode]::OK
-        Body       = $syncLogList
-    })
 
 # #  functions - code to post to log analytics - put just write to console and use app insights with a scope 
 # ### Create the function to create the authorization signature

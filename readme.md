@@ -18,3 +18,9 @@ To view logs make sure application insights is setup and set an alert for the fo
 
 
 ![image](https://user-images.githubusercontent.com/662868/76823422-2921af80-684f-11ea-93d9-e28051d62c97.png)
+
+
+# Scheduled via a recurring logic app every 5 minutes
+
+https://github.com/chrismckelt/data-sync-log-grabber/blob/master/HttpDataSyncLogs/scheduled-task-call-sqldatasynclog-func-app.logicapp.json
+
